@@ -7,9 +7,15 @@
     <title>Workbook - Group 78</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        .dropdown {
+            position: relative;
+        }
         .dropdown:hover .dropdown-menu,
         .dropdown-menu:hover {
-            display: block;
+            display: block !important;
+        }
+        .dropdown-menu {
+            z-index: 9999 !important;
         }
         .accordion-content {
             max-height: 0;

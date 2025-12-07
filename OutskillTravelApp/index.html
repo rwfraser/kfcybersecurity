@@ -10,9 +10,15 @@
         .gradient-bg {
             background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
         }
+        .dropdown {
+            position: relative;
+        }
         .dropdown:hover .dropdown-menu,
         .dropdown-menu:hover {
-            display: block;
+            display: block !important;
+        }
+        .dropdown-menu {
+            z-index: 9999 !important;
         }
     </style>
 </head>
