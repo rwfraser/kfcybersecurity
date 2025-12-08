@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sample travel itineraries for Solo Wanderers">
+    <title>Sample Itineraries - Group 78</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .itinerary {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 6px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .itinerary:hover {
+            transform: translateX(15px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .itinerary h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .itinerary h3 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .itinerary ul {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        .itinerary li {
+            margin-bottom: 12px;
+            line-height: 1.8;
+            color: #555;
+        }
+        .intro-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 6px solid #667eea;
+        }
+        .prompt-section {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe9e9 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 6px solid #e74c3c;
+        }
+        .dropdown { position: relative; }
+        .dropdown:hover .dropdown-menu, .dropdown-menu:hover { display: block !important; }
+        .dropdown-menu { z-index: 9999 !important; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex space-x-8">
+                    <a href="index.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        Home
+                    </a>
+                    <a href="members.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        Members
+                    </a>
+                    <a href="workbook.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        Workbook
+                    </a>
+                    <div class="relative dropdown inline-flex items-center">
+                        <button class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Competitors
+                            <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu hidden absolute top-full left-0 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                            <a href="CompetitiveAnalysis.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Best to Worst</a>
+                            <a href="CompetitiveAnalysis_v2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Worst to Best</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        About
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>🌍 Sample Travel Itineraries</h1>
+            <div class="subtitle">AI-Generated Solo Wanderer Experiences</div>
+        </header>
+
+        <div class="content">
+            <div class="intro-section">
+                <p style="color: #555; line-height: 1.8; font-size: 1.05em;">
+                    We have created a custom built GPT to deliver our itineraries according to the prospective traveler's profile. Here is a sample prompt and the output:
+                </p>
+            </div>
+
+            <div class="prompt-section">
+                <h3 style="color: #e74c3c; font-weight: 700; margin-bottom: 10px;">📝 Prompt:</h3>
+                <p style="color: #555; font-style: italic;">'Please provide itineraries for a 'Solo Wanderer' traveler, who wishes to travel for 6 days in January 2026.'</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 25px; border-radius: 10px; margin-bottom: 40px; border-left: 6px solid #27ae60;">
+                <h2 style="color: #2c3e50; font-size: 1.8em; margin-bottom: 8px; font-weight: 700;">Solo Wanderer Itineraries — January 2026</h2>
+                <p style="color: #555; font-size: 1.05em;">Designed for independent, introspective travelers who enjoy reflection, flexibility, and solo-friendly experiences.</p>
+            </div>
+
+            <article class="itinerary">
+                <h2>🌿 Still Waters of Slovenia</h2>
+                <h3>Reflective Nature Escape</h3>
+                <p><strong>Base:</strong> Lake Bled · Triglav National Park · Ljubljana</p>
+                <ul>
+                    <li><strong>Day 1:</strong> Arrive in Ljubljana (train if from Europe). Explore the Old Town and riverside cafés. Overnight in a family-run eco guesthouse.</li>
+                    <li><strong>Day 2:</strong> Train to Lake Bled. Walk the lakeside trail, optional winter rowboat to the island. Journaling time in the afternoon.</li>
+                    <li><strong>Day 3:</strong> Hike part of Triglav National Park (snow trails with a local guide). Evening sauna in Bohinj.</li>
+                    <li><strong>Day 4:</strong> Visit a local cheesemaker or honey farm; learn about traditional Alpine crafts.</li>
+                    <li><strong>Day 5:</strong> Return to Ljubljana. Explore galleries and hidden bookshops.</li>
+                    <li><strong>Day 6:</strong> Morning coffee at a local café; departure.</li>
+                </ul>
+                <p style="color: #27ae60; font-style: italic; margin-top: 15px;"><strong>Sustainability:</strong> Public transport only, local food, family-run lodgings.</p>
+            </article>
+
+            <article class="itinerary">
+                <h2>🌾 Quiet Roads of Japan’s Kiso Valley</h2>
+                <h3>Cultural Solitude</h3>
+                <p><strong>Base:</strong> Kyoto · Nara · Kiso Valley</p>
+                <ul>
+                    <li><strong>Day 1:</strong> Arrive in Kyoto by shinkansen. Evening walk in Gion district.</li>
+                    <li><strong>Day 2:</strong> Morning tea ceremony class, then train to Nara for temples and deer park visit.</li>
+                    <li><strong>Day 3:</strong> Travel to Kiso Valley (Magome). Stay in a ryokan with vegetarian kaiseki dinner.</li>
+                    <li><strong>Day 4:</strong> Solo walk along the historic Nakasendo trail (Magome–Tsumago). Journal or sketch mid-hike.</li>
+                    <li><strong>Day 5:</strong> Local woodcraft workshop or hot-spring bath.</li>
+                    <li><strong>Day 6:</strong> Return to Tokyo or Kyoto for departure.</li>
+                </ul>
+                <p style="color: #27ae60; font-style: italic; margin-top: 15px;"><strong>Sustainability:</strong> Rail travel only, local food, traditional ryokans.</p>
+            </article>
+
+            <article class="itinerary">
+                <h2>🌇 Lisbon at Your Own Pace</h2>
+                <h3>Urban Soul Discovery</h3>
+                <p><strong>Base:</strong> Lisbon · Sintra · Cascais</p>
+                <ul>
+                    <li><strong>Day 1:</strong> Arrival and tram ride through Alfama. Sunset at Miradouro da Senhora do Monte.</li>
+                    <li><strong>Day 2:</strong> Explore local markets and art collectives. Optional group walking tour.</li>
+                    <li><strong>Day 3:</strong> Train to Sintra. Visit Pena Palace and the forests. Stay overnight.</li>
+                    <li><strong>Day 4:</strong> Morning meditation at Cabo da Roca cliffs; afternoon return to Lisbon.</li>
+                    <li><strong>Day 5:</strong> Day trip to Cascais by train for coastal walks.</li>
+                    <li><strong>Day 6:</strong> Slow breakfast and bookstore browsing before departure.</li>
+                </ul>
+                <p style="color: #27ae60; font-style: italic; margin-top: 15px;"><strong>Sustainability:</strong> Train and local transport, support independent businesses, optional carbon offset.</p>
+            </article>
+        </div>
+
+        <footer>
+            <p><strong>Solo Wanderer Message:</strong> “Take time for yourself. Go at your own pace.”</p>
+        </footer>
+    </div>
+</body>
+</html>
