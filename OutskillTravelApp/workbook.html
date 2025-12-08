@@ -26,6 +26,10 @@
             max-height: 500px;
             transition: max-height 0.5s ease-in;
         }
+        .scrollable-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
         .chevron {
             transition: transform 0.3s ease;
         }
@@ -89,10 +93,37 @@
                         </svg>
                     </button>
                     <div id="content-phase1" class="accordion-content">
-                        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
-                            <p class="text-gray-700 leading-relaxed">
-                                Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat.
-                            </p>
+                        <div class="scrollable-content px-6 py-4 bg-gray-50 border-t border-gray-200">
+                            <ol class="text-gray-700 leading-relaxed list-decimal list-outside ml-5 space-y-4">
+                                <li>
+                                    <strong>Product and User Basics:</strong><br>
+                                    The product is an ecotourism web app. Users will sign up, fill out a brief survey, and based on the results of the survey, we will be given three suggested eco-tourism packages in priority order from the top priority most recommended to the next most to the least most. We will build in an AI inference engine to combine the results of the survey and generate the best recommendations.
+                                </li>
+                                <li>
+                                    <strong>The 5 whys would be:</strong>
+                                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                                        <li>Why do we need this app? Responsible travel is important today</li>
+                                        <li>Why use a survey? We need to understand our end user's specific needs</li>
+                                        <li>Why include an inference engine? To complement the results of the survey and draw from the widest and deepest well of knowledge and expertise</li>
+                                        <li>Why not just call a travel agent? They will not be equipped to ensure the best outcome</li>
+                                        <li>Why travel at all? Travel is educational and contributes to broad social cohesion</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Competitor scan and AI feature analysis</strong><br>
+                                    <strong>ChatGPT prompt for competitors:</strong><br>
+                                    <strong>#** Role **</strong><br>
+                                    You are an expert web site analyst with deep expertise in applied AI and you have the ability to navigate specific websites and assess the quality of the services they offer directly through the website and also services the organization offers beyond those delivered via the website. In other words, you have the ability to assess onsite services and you have the ability to apply your enormous assessment and analytical abilities to form an opinion about the quality of their other products and services through deep research from any and all sources available to you.<br><br>
+                                    <strong>#** Task **</strong><br>
+                                    You have been tasked to assess the top 15 sustainable travel companies according to two criteria: 1) the degree to which they incorporate AI tools in to their website and their daily operations and 2) the quality and variety of their trip planning services and their ability to customize travel itineraries to the needs and expectations of their clientele. Please respond with an ordered list from WORST to BEST of these sustainable travel companies, with your commentary on how each one meets or does not meet the criteria stipulated above. Please provide your answer in a code editor or code block.<br><br>
+                                    <strong>#** Context **</strong><br>
+                                    This is a competitive assessment of the existing field of operators, intended to inform our efforts to launch a paid AI-powered Eco Tourism Web App which will survey prospective travellers and then, based on the results of the survey, determine all the relevant available sustainable travel options for that traveller and then create 3 detailed recommended travel itineraries for that client. The web app is a paid service in an industry where bookings are often bundled free by providers, so the quality of the information gathered and the analysis used in matching the options to the client must be the very best available.<br><br>
+                                    <strong>#** Data **</strong><br>
+                                    Use all the available data sources that are available to you.<br><br>
+                                    <strong>ChatGPT response (reformatted from json to html5 and with the order reversed).</strong><br>
+                                    See <a href="https://rwfraser.github.io/TravelAppDemo/OutskillTravelApp/CompetitiveAnalysis_v2.html" class="text-blue-600 hover:underline">https://rwfraser.github.io/TravelAppDemo/OutskillTravelApp/CompetitiveAnalysis_v2.html</a>
+                                </li>
+                            </ol>
                             <div class="mt-4 flex flex-wrap gap-2">
                                 <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Brainstorming</span>
                                 <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Research</span>
@@ -114,7 +145,7 @@
                         </svg>
                     </button>
                     <div id="content-phase2" class="accordion-content">
-                        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <div class="scrollable-content px-6 py-4 bg-gray-50 border-t border-gray-200">
                             <p class="text-gray-700 leading-relaxed">
                                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
                             </p>
@@ -139,7 +170,7 @@
                         </svg>
                     </button>
                     <div id="content-phase3" class="accordion-content">
-                        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <div class="scrollable-content px-6 py-4 bg-gray-50 border-t border-gray-200">
                             <p class="text-gray-700 leading-relaxed">
                                 Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur quis autem vel eum iure reprehenderit.
                             </p>
