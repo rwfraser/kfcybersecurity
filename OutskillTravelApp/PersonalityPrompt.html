@@ -7,56 +7,63 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1000;
-            border-radius: 8px;
-            overflow: hidden;
+        .dropdown {
+            position: relative;
         }
-        .dropdown:hover .dropdown-content {
-            display: block;
+        .dropdown:hover .dropdown-menu,
+        .dropdown-menu:hover {
+            display: block !important;
         }
-        .dropdown-content a {
-            color: #333;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
+        .dropdown-menu {
+            z-index: 9999 !important;
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="min-h-screen bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Group 78 Eco Travel Itinerary</h1>
-            <ul class="flex space-x-6">
-                <li><a href="index.html" class="hover:underline">Home</a></li>
-                <li><a href="members.html" class="hover:underline">Team</a></li>
-                <li><a href="about.html" class="hover:underline">About</a></li>
-                <li><a href="workbook.html" class="hover:underline">Workbook</a></li>
-                <li class="dropdown relative">
-                    <a href="#" class="hover:underline">Mileposts ▾</a>
-                    <div class="dropdown-content">
-                        <a href="CompetitiveAnalysis.html">Competitive Analysis</a>
-                        <a href="CompetitiveAnalysis_v2.html">Competitive Analysis v2</a>
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex space-x-8">
+                    <a href="index.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        Home
+                    </a>
+                    <a href="members.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        Members
+                    </a>
+                    <a href="workbook.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        Workbook
+                    </a>
+                    <div class="relative dropdown inline-flex items-center">
+                        <button class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Mileposts
+                            <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu hidden absolute top-full left-0 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                            <a href="CompetitiveAnalysis.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Best to Worst</a>
+                            <a href="CompetitiveAnalysis_v2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Worst to Best</a>
+                        </div>
                     </div>
-                </li>
-                <li class="dropdown relative">
-                    <a href="#" class="hover:underline font-semibold">Drafts ▾</a>
-                    <div class="dropdown-content">
-                        <a href="IGSysPrompt.html">IG AutoPostPrompt</a>
-                        <a href="SampleItineraries.html">Initial Itineraries</a>
-                        <a href="PersonalityPrompt.html" class="font-semibold">Personality Prompt</a>
+                    <a href="about.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        About
+                    </a>
+                    <div class="relative dropdown inline-flex items-center">
+                        <button class="inline-flex items-center px-1 pt-1 border-b-2 border-green-500 text-sm font-medium text-gray-900">
+                            Drafts
+                            <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu hidden absolute top-full left-0 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                            <a href="IGSysPrompt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">IG AutoPostPrompt</a>
+                            <a href="SampleItineraries.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Initial Itineraries</a>
+                            <a href="PersonalityPrompt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-semibold">PersonalityPrompt</a>
+                        </div>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -257,8 +264,10 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center p-4 mt-12">
-        <p>&copy; 2024 Group 78. All rights reserved.</p>
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2025 Group 78 - Eco Travel Itinerary Project</p>
+        </div>
     </footer>
 </body>
 </html>
