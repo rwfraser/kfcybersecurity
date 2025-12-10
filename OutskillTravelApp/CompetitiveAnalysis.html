@@ -53,9 +53,17 @@
             <a href="about.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
                 About
             </a>
-            <a href="drafts.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                Drafts
-            </a>
+            <div class="relative dropdown inline-flex items-center">
+                <button class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    Drafts
+                    <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <div class="dropdown-menu hidden absolute top-full left-0 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                    <a href="IGSysPrompt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">IG AutoPostPrompt</a>
+                </div>
+            </div>
         </div>
       </div>
     </div>
