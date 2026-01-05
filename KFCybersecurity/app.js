@@ -18,6 +18,37 @@ let activeDeployments = {
     "Soylent Corp": [1, 2, 3, 4, 5, 6, 7, 8]
 };
 
+// Toast Notification System
+function showToast(message, type = 'info', duration = 3000) {
+    const container = document.getElementById('toastContainer');
+    
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
+    };
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <i class="fas ${icons[type]} toast-icon"></i>
+        <div class="toast-message">${message}</div>
+        <button class="toast-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Auto-remove after duration
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(400px)';
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
 // Render Logic
 function renderDashboard() {
     const grid = document.getElementById('dashboard-grid');
@@ -95,8 +126,9 @@ function toggleUserMode() {
 
 function deployService(id) {
     const client = document.getElementById('clientSelect').value;
+    const service = services.find(s => s.id === id);
     activeDeployments[client].push(id);
-    alert(`Initiating deployment scripts for Service ID #${id} on ${client}...`);
+    showToast(`${service.name} deployed to ${client}`, 'success');
     renderDashboard();
 }
 
