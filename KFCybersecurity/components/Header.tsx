@@ -50,7 +50,7 @@ export default function Header({
           }`}
         >
           <i className={`fas ${isAdminMode ? 'fa-user-secret' : 'fa-user-tie'} mr-2`}></i>
-          {isAdminMode ? 'View as MSP Admin' : 'View as Client'}
+          {isAdminMode ? 'View as Client' : 'View as MSP Admin'}
         </button>
       </div>
     </div>
