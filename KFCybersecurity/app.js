@@ -205,6 +205,31 @@ function closeModal() {
     document.getElementById('appModal').style.display = 'none';
 }
 
+// Modal event handlers for ESC key and click-outside
+function setupModalHandlers() {
+    const modal = document.getElementById('appModal');
+    const modalContent = modal.querySelector('.modal');
+    
+    // Close modal on ESC key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.style.display === 'flex') {
+            closeModal();
+        }
+    });
+    
+    // Close modal when clicking on overlay (outside modal content)
+    modal.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Prevent clicks inside modal content from closing the modal
+    modalContent.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+}
+
 let chartInstance = null;
 function renderChart() {
     const ctx = document.getElementById('threatChart').getContext('2d');
@@ -257,4 +282,5 @@ function initializeUI() {
 // Init
 loadState();
 initializeUI();
+setupModalHandlers();
 renderDashboard();
