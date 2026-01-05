@@ -10,13 +10,49 @@ const services = [
     { id: 8, name: "PhishSim Trainer", vertical: "Govern", desc: "Employee awareness training.", price: "$2/user" }
 ];
 
-// Mock State
-let isAdminMode = true;
-let activeDeployments = {
-    "Acme Corp": [1, 3, 5, 7], // IDs of active services
+// Default State
+const DEFAULT_DEPLOYMENTS = {
+    "Acme Corp": [1, 3, 5, 7],
     "Globex Inc": [3, 4],
     "Soylent Corp": [1, 2, 3, 4, 5, 6, 7, 8]
 };
+
+// State Management with localStorage
+let isAdminMode = true;
+let activeDeployments = {};
+
+// Load state from localStorage
+function loadState() {
+    try {
+        const savedMode = localStorage.getItem('kf_adminMode');
+        const savedDeployments = localStorage.getItem('kf_deployments');
+        
+        if (savedMode !== null) {
+            isAdminMode = savedMode === 'true';
+        }
+        
+        if (savedDeployments) {
+            activeDeployments = JSON.parse(savedDeployments);
+        } else {
+            // Use defaults if no saved state
+            activeDeployments = JSON.parse(JSON.stringify(DEFAULT_DEPLOYMENTS));
+        }
+    } catch (error) {
+        console.error('Error loading state from localStorage:', error);
+        // Fallback to defaults
+        activeDeployments = JSON.parse(JSON.stringify(DEFAULT_DEPLOYMENTS));
+    }
+}
+
+// Save state to localStorage
+function saveState() {
+    try {
+        localStorage.setItem('kf_adminMode', isAdminMode.toString());
+        localStorage.setItem('kf_deployments', JSON.stringify(activeDeployments));
+    } catch (error) {
+        console.error('Error saving state to localStorage:', error);
+    }
+}
 
 // Toast Notification System
 function showToast(message, type = 'info', duration = 3000) {
@@ -106,6 +142,8 @@ function renderDashboard() {
 // Actions
 function toggleUserMode() {
     isAdminMode = !isAdminMode;
+    saveState();
+    
     const btn = document.getElementById('modeBtn');
     const title = document.getElementById('page-title');
     const selector = document.getElementById('client-select-container');
@@ -128,6 +166,7 @@ function deployService(id) {
     const client = document.getElementById('clientSelect').value;
     const service = services.find(s => s.id === id);
     activeDeployments[client].push(id);
+    saveState();
     showToast(`${service.name} deployed to ${client}`, 'success');
     renderDashboard();
 }
@@ -140,6 +179,7 @@ function toggleSubscription(id) {
     } else {
         activeDeployments[client].push(id); // Add
     }
+    saveState();
     renderDashboard();
 }
 
@@ -195,5 +235,26 @@ function renderChart() {
     });
 }
 
+// Initialize UI based on saved mode
+function initializeUI() {
+    const btn = document.getElementById('modeBtn');
+    const title = document.getElementById('page-title');
+    const selector = document.getElementById('client-select-container');
+
+    if (isAdminMode) {
+        btn.innerHTML = '<i class="fas fa-user-secret"></i> View as MSP Admin';
+        btn.style.background = 'var(--accent)';
+        title.innerText = 'Service Command Center';
+        selector.style.display = 'block';
+    } else {
+        btn.innerHTML = '<i class="fas fa-user-tie"></i> View as Client';
+        btn.style.background = 'var(--success)';
+        title.innerText = 'My Service Portal (A La Carte)';
+        selector.style.display = 'none';
+    }
+}
+
 // Init
+loadState();
+initializeUI();
 renderDashboard();
