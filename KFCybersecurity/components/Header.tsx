@@ -1,11 +1,12 @@
 'use client';
 
-import { clients } from '@/lib/data';
+import { signOut } from 'next-auth/react';
 
 interface HeaderProps {
   title: string;
   isAdminMode: boolean;
   selectedClient: string;
+  clients: Array<{ id: string; name: string }>;
   onClientChange: (client: string) => void;
   onModeToggle: () => void;
   showClientSelector: boolean;
@@ -15,6 +16,7 @@ export default function Header({
   title,
   isAdminMode,
   selectedClient,
+  clients,
   onClientChange,
   onModeToggle,
   showClientSelector,
@@ -33,8 +35,8 @@ export default function Header({
               className="bg-[var(--bg-dark)] text-[var(--text-primary)] border border-[var(--border)] px-2 py-2 rounded-md cursor-pointer"
             >
               {clients.map((client) => (
-                <option key={client} value={client}>
-                  {client}
+                <option key={client.id} value={client.name}>
+                  {client.name}
                 </option>
               ))}
             </select>
@@ -42,15 +44,11 @@ export default function Header({
         )}
         
         <button
-          onClick={onModeToggle}
-          className={`px-4 py-2 rounded-md text-white font-medium text-sm transition-colors duration-200 ${
-            isAdminMode
-              ? 'bg-[var(--accent)] hover:opacity-90'
-              : 'bg-[var(--success)] hover:opacity-90'
-          }`}
+          onClick={() => signOut({ callbackUrl: '/login' })}
+          className="px-4 py-2 rounded-md text-white font-medium text-sm transition-colors duration-200 bg-red-500 hover:opacity-90"
         >
-          <i className={`fas ${isAdminMode ? 'fa-user-secret' : 'fa-user-tie'} mr-2`}></i>
-          {isAdminMode ? 'View as Client' : 'View as MSP Admin'}
+          <i className="fas fa-sign-out-alt mr-2"></i>
+          Logout
         </button>
       </div>
     </div>

@@ -1,83 +1,139 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { ActiveDeployments } from '@/types';
-import { defaultDeployments, clients } from './data';
 
 export function useAppState() {
-  const [isAdminMode, setIsAdminMode] = useState(true);
-  const [selectedClient, setSelectedClient] = useState(clients[0]);
-  const [activeDeployments, setActiveDeployments] = useState<ActiveDeployments>(defaultDeployments);
+  const { data: session, status } = useSession();
+  const [clients, setClients] = useState<Array<{ id: string; name: string }>>([]);
+  const [selectedClient, setSelectedClient] = useState<string>('');
+  const [selectedClientId, setSelectedClientId] = useState<string>('');
+  const [activeDeployments, setActiveDeployments] = useState<ActiveDeployments>({});
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load state from localStorage on mount
+  const isAdminMode = session?.user?.role === 'ADMIN';
+
+  // Fetch clients and deployments from API
   useEffect(() => {
+    async function loadData() {
+      if (status === 'loading') return;
+      if (!session) {
+        setIsLoaded(true);
+        return;
+      }
+
+      try {
+        // Fetch clients (admin only)
+        if (isAdminMode) {
+          const clientsRes = await fetch('/api/clients');
+          if (clientsRes.ok) {
+            const clientsData = await clientsRes.json();
+            setClients(clientsData);
+            
+            // Set first client as selected by default
+            if (clientsData.length > 0) {
+              setSelectedClient(clientsData[0].name);
+              setSelectedClientId(clientsData[0].id);
+            }
+          }
+        } else {
+          // For client users, use their client info from session
+          if (session.user.clientName && session.user.clientId) {
+            setSelectedClient(session.user.clientName);
+            setSelectedClientId(session.user.clientId);
+            setClients([{ id: session.user.clientId, name: session.user.clientName }]);
+          }
+        }
+
+        // Fetch deployments
+        await fetchDeployments();
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setIsLoaded(true);
+      }
+    }
+
+    loadData();
+  }, [status, session]);
+
+  // Fetch deployments when selected client changes
+  useEffect(() => {
+    if (isLoaded && selectedClientId) {
+      fetchDeployments();
+    }
+  }, [selectedClientId]);
+
+  async function fetchDeployments() {
+    if (!selectedClientId) return;
+
     try {
-      const savedMode = localStorage.getItem('kf_adminMode');
-      const savedDeployments = localStorage.getItem('kf_deployments');
-      const savedClient = localStorage.getItem('kf_selectedClient');
-
-      if (savedMode !== null) {
-        setIsAdminMode(savedMode === 'true');
-      }
-
-      if (savedDeployments) {
-        setActiveDeployments(JSON.parse(savedDeployments));
-      }
-
-      if (savedClient && clients.includes(savedClient)) {
-        setSelectedClient(savedClient);
+      const res = await fetch(`/api/deployments?clientId=${selectedClientId}`);
+      if (res.ok) {
+        const deploymentsData = await res.json();
+        const serviceIds = deploymentsData.map((d: any) => d.serviceId);
+        setActiveDeployments({
+          [selectedClient]: serviceIds,
+        });
       }
     } catch (error) {
-      console.error('Error loading state from localStorage:', error);
-    } finally {
-      setIsLoaded(true);
+      console.error('Error fetching deployments:', error);
     }
-  }, []);
+  }
 
-  // Save state to localStorage whenever it changes
-  useEffect(() => {
-    if (!isLoaded) return;
+  const handleClientChange = (clientName: string) => {
+    setSelectedClient(clientName);
+    const client = clients.find(c => c.name === clientName);
+    if (client) {
+      setSelectedClientId(client.id);
+    }
+  };
+
+  const deployService = async (serviceId: number) => {
+    if (!selectedClientId) return;
 
     try {
-      localStorage.setItem('kf_adminMode', isAdminMode.toString());
-      localStorage.setItem('kf_deployments', JSON.stringify(activeDeployments));
-      localStorage.setItem('kf_selectedClient', selectedClient);
-    } catch (error) {
-      console.error('Error saving state to localStorage:', error);
-    }
-  }, [isAdminMode, activeDeployments, selectedClient, isLoaded]);
+      const res = await fetch('/api/deployments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientId: selectedClientId, serviceId }),
+      });
 
-  const toggleAdminMode = () => {
-    setIsAdminMode((prev) => !prev);
-  };
-
-  const deployService = (serviceId: number) => {
-    setActiveDeployments((prev) => ({
-      ...prev,
-      [selectedClient]: [...(prev[selectedClient] || []), serviceId],
-    }));
-  };
-
-  const toggleSubscription = (serviceId: number) => {
-    setActiveDeployments((prev) => {
-      const currentDeployments = prev[selectedClient] || [];
-      const index = currentDeployments.indexOf(serviceId);
-
-      if (index > -1) {
-        // Remove
-        return {
-          ...prev,
-          [selectedClient]: currentDeployments.filter((id) => id !== serviceId),
-        };
+      if (res.ok) {
+        await fetchDeployments();
       } else {
-        // Add
-        return {
-          ...prev,
-          [selectedClient]: [...currentDeployments, serviceId],
-        };
+        const error = await res.json();
+        console.error('Failed to deploy service:', error);
       }
-    });
+    } catch (error) {
+      console.error('Error deploying service:', error);
+    }
+  };
+
+  const toggleSubscription = async (serviceId: number) => {
+    if (!selectedClientId) return;
+
+    const currentDeployments = activeDeployments[selectedClient] || [];
+    const isDeployed = currentDeployments.includes(serviceId);
+
+    try {
+      if (isDeployed) {
+        // Remove deployment
+        const res = await fetch(`/api/deployments?clientId=${selectedClientId}&serviceId=${serviceId}`, {
+          method: 'DELETE',
+        });
+
+        if (res.ok) {
+          await fetchDeployments();
+        }
+      } else {
+        // Add deployment
+        await deployService(serviceId);
+      }
+    } catch (error) {
+      console.error('Error toggling subscription:', error);
+    }
   };
 
   return {
@@ -85,8 +141,8 @@ export function useAppState() {
     selectedClient,
     activeDeployments,
     isLoaded,
-    toggleAdminMode,
-    setSelectedClient,
+    toggleAdminMode: () => {}, // No-op since role is determined by session
+    setSelectedClient: handleClientChange,
     deployService,
     toggleSubscription,
   };

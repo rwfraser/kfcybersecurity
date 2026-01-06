@@ -1,15 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
 import ServiceCard from '@/components/ServiceCard';
 import Modal from '@/components/Modal';
 import { useToast } from '@/components/ToastProvider';
 import { useAppState } from '@/lib/useAppState';
-import { services } from '@/lib/data';
 
 export default function DashboardPage() {
+  const { data: session } = useSession();
   const {
     isAdminMode,
     selectedClient,
@@ -21,9 +22,43 @@ export default function DashboardPage() {
     toggleSubscription,
   } = useAppState();
 
+  const [clients, setClients] = useState<Array<{ id: string; name: string }>>([]);
+  const [services, setServices] = useState<any[]>([]);
+
   const { showToast } = useToast();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
+
+  // Fetch services and clients
+  useEffect(() => {
+    async function loadData() {
+      try {
+        // Fetch services
+        const servicesRes = await fetch('/api/services');
+        if (servicesRes.ok) {
+          const servicesData = await servicesRes.json();
+          setServices(servicesData);
+        }
+
+        // Fetch clients if admin
+        if (isAdminMode) {
+          const clientsRes = await fetch('/api/clients');
+          if (clientsRes.ok) {
+            const clientsData = await clientsRes.json();
+            setClients(clientsData);
+          }
+        } else if (session?.user?.clientId && session?.user?.clientName) {
+          setClients([{ id: session.user.clientId, name: session.user.clientName }]);
+        }
+      } catch (error) {
+        console.error('Error loading data:', error);
+      }
+    }
+
+    if (isLoaded) {
+      loadData();
+    }
+  }, [isLoaded, isAdminMode, session]);
 
   const handleDeploy = (serviceId: number) => {
     const service = services.find((s) => s.id === serviceId);
@@ -58,6 +93,7 @@ export default function DashboardPage() {
           title={title}
           isAdminMode={isAdminMode}
           selectedClient={selectedClient}
+          clients={clients}
           onClientChange={setSelectedClient}
           onModeToggle={toggleAdminMode}
           showClientSelector={isAdminMode}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ToastProvider } from "@/components/ToastProvider";
+import SessionProvider from "@/components/SessionProvider";
 
 export const metadata: Metadata = {
   title: "KFCybersecurity Command Center",
@@ -21,7 +22,9 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <ToastProvider>{children}</ToastProvider>
+        <SessionProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </SessionProvider>
       </body>
     </html>
   );
